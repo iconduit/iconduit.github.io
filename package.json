@@ -27,11 +27,13 @@
     "sinon-chai": "^3.3.0"
   },
   "scripts": {
+    "bundlesize": "GITHUB_TOKEN= npx bundlesize",
     "ci-lint": "eslint .",
     "coverage": "nyc mocha 'test/suite/**/*.spec.js'",
     "coverage-open": "open artifacts/tests/coverage/html/index.html",
     "lint": "eslint --fix .",
     "pre-commit": "yarn test && yarn ci-lint",
+    "release": "NODE_ENV=production webpack -p",
     "test": "mocha 'test/suite/**/*.spec.js'"
   }
 }

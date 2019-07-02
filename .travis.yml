@@ -4,7 +4,8 @@ node_js: [node]
 script:
 - yarn test
 - yarn ci-lint
-- node_modules/.bin/webpack -p
+- yarn release
+- yarn bundlesize
 - cp README.md dist/
 deploy:
   provider: pages
@@ -16,3 +17,6 @@ deploy:
   target_branch: master
   on:
     branch: source
+env:
+  global:
+    - secure: "Rqxjm/CZad6zO/cK2RLEcZvz3nYTl27RWhCH02VUWvYhSSbKok2i/p/sBy8CdsraxGZQg84nI7xhDbYgHJvKPOCWgRL2CrVkiZAceBRvWpriUbUOeZwHgWaTfn9J24GDNZNwYC4DF4Q3btr1S3sewfy63c0h7UVB4Eq1lHBDNX2l7OL3zRo38cEeT03N3nsitPLzrow0NdsfxwCDIfTBPgchn444ce6yE6vao6kbSuK1OTTTeiKya2SwBxQSGg4Ip7JMEOlkAQEAX4uoo6ZTkzxTPcpoU9o13y7/U0cReFYY/ZEDJZyibqcRE+J98NbJo5+d1sc0HrlktSNeio/cQFFXbpPTcFgL/UVeEMX2qLHL70lHH/xQi8ex6SlVmfuWi4gLRDQzl6Qx0ZEiUHX71DkfEbseTsq+zpHx4HdTI1DTk9ySV3UqY7i/0x14PV//3lkpEQo8w85YwW4noKl2YddrYSUFx6GXIBxnBrVp8zkokBvCAIPC1TCJQbvRIA/NHBMvxQJ7mvIWeG8673OYdIrFbqTnTvtDryELlK1Hj2Yshd9T9c/L6IhdE9F2r7RrQhHmLtHdjXfgucTgcr9myXhw2sExlg84f+JS9j5N0tyncJAka3ht3DrgYymOAkEyw0DozZg2qHrQIeETYdCc7ScfCXdMO6dEJSHbfmpJIsA="
