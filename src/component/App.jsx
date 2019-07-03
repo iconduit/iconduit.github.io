@@ -1,7 +1,7 @@
-import React, {Fragment} from 'react'
+import {h} from 'preact'
 
 export default function App () {
-  return <Fragment>
+  return <span>
     <h1>Iconduit</h1>
-  </Fragment>
+  </span>
 }

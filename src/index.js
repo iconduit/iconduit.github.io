@@ -1,4 +1,4 @@
-import {render} from 'react-dom'
+import {render} from 'preact'
 
 import App from './component/App.jsx'
 
