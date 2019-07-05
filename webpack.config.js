@@ -2,25 +2,46 @@
 
 const {join} = require('path')
 
+const CopyPlugin = require('copy-webpack-plugin')
 const GitVersionPlugin = require('@eloquent/git-version-webpack-plugin')
 const HtmlPlugin = require('html-webpack-plugin')
+const IconduitHtmlPlugin = require('@iconduit/html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const {CleanWebpackPlugin: CleanPlugin} = require('clean-webpack-plugin')
+const {GenerateSW} = require('workbox-webpack-plugin')
+
+const consumer = require('./assets/iconduit.consumer.js')
 
 const {env: {TRAVIS_COMMIT: travisCommit}} = process
 const version = travisCommit && travisCommit.substring(0, 7)
 
 const srcPath = join(__dirname, 'src')
+const manifestPath = join(__dirname, 'assets/site.iconduitmanifest')
 
 module.exports = (_, {mode = 'development'} = {}) => {
   const isProduction = mode === 'production'
+  const {manifest: {name}} = consumer
+
+  const fileLoader = {
+    loader: 'file-loader',
+    options: {
+      name: isProduction ? '[name].[hash].[ext]' : '[name].[ext]',
+    },
+  }
 
   return {
     mode,
     plugins: [
       new CleanPlugin(),
-      new HtmlPlugin(),
+      new HtmlPlugin({title: name}),
       new GitVersionPlugin({version}),
+      new IconduitHtmlPlugin({manifestPath}),
+      new GenerateSW(),
+      new CopyPlugin([
+        {
+          from: consumer.absoluteImagePath('faviconIco', 'container'),
+        },
+      ]),
     ],
     devtool: 'source-map',
     output: {
@@ -35,8 +56,23 @@ module.exports = (_, {mode = 'development'} = {}) => {
       rules: [
         {
           test: /\.jsx?$/,
-          loader: 'babel-loader',
           include: [srcPath],
+          use: [
+            'babel-loader',
+          ],
+        },
+        {
+          test: /\.(png|svg)$/,
+          use: [
+            fileLoader,
+          ],
+        },
+        {
+          test: /(\.webmanifest|browserconfig\.xml)$/,
+          use: [
+            fileLoader,
+            'app-manifest-loader',
+          ],
         },
       ],
     },
