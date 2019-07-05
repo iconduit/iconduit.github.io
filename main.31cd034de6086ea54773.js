@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([[2],{362:function(e,n,t){"use strict";t.r(n);var a=t(142);var r=t(60);var c=t.n(r);function d(){return c.a.createElement(r["Fragment"],null,c.a.createElement("h1",null,"Iconduit"))}document.addEventListener("DOMContentLoaded",function(){var e=document.createElement("span");document.body.appendChild(e);Object(a["render"])(d(),e)})}},[[362,0,1]]]);
+//# sourceMappingURL=main.31cd034de6086ea54773.js.map
