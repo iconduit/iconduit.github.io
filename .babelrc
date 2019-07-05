@@ -1,0 +1,30 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "corejs": 3,
+        "useBuiltIns": "entry"
+      }
+    ],
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-object-rest-spread",
+    [
+      "babel-plugin-module-resolver",
+      {
+        "alias": {
+          "~": "."
+        }
+      }
+    ]
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "babel-plugin-istanbul"
+      ]
+    }
+  }
+}

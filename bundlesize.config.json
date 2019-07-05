@@ -1,8 +1,20 @@
 {
   "files": [
     {
-      "path": "dist/main.js",
-      "maxSize": "30 Kb"
+      "path": "dist/main*.js",
+      "maxSize": "30Kb"
+    },
+    {
+      "path": "dist/polyfill*.js",
+      "maxSize": "10Kb"
+    },
+    {
+      "path": "dist/runtime*.js",
+      "maxSize": "10Kb"
+    },
+    {
+      "path": "dist/vendors*.js",
+      "maxSize": "100Kb"
     }
   ]
 }

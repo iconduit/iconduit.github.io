@@ -1,5 +1,11 @@
 {
+  "extends": "@istanbuljs/nyc-config-babel",
+  "all": true,
+  "extension": [".js", ".jsx"],
+  "include": [
+    "src/**"
+  ],
+  "reporter": ["text", "html"],
   "report-dir": "artifacts/tests/coverage/html",
-  "reporter": "html",
   "temp-dir": "artifacts/tests/coverage/nyc"
 }
