@@ -1,0 +1,48 @@
+{
+  "background_color": "#D5415C",
+  "categories": [
+    "utilities"
+  ],
+  "description": "The Iconduit brand in \"Material Design\" style.",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "sizes": "1024x1024",
+      "src": "web-app-icon-masked-1024x1024.png",
+      "type": "image/png"
+    },
+    {
+      "sizes": "512x512",
+      "src": "web-app-icon-masked-512x512.png",
+      "type": "image/png"
+    },
+    {
+      "sizes": "192x192",
+      "src": "web-app-icon-masked-192x192.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "sizes": "1024x1024",
+      "src": "web-app-icon-maskable-1024x1024.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "web-app-icon-maskable-512x512.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "sizes": "192x192",
+      "src": "web-app-icon-maskable-192x192.png",
+      "type": "image/png"
+    }
+  ],
+  "lang": "en-US",
+  "name": "Iconduit (Material)",
+  "short_name": "Iconduit",
+  "start_url": ".",
+  "theme_color": "#D5415C"
+}
