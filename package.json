@@ -41,7 +41,8 @@
     "nyc": "^14.0.0",
     "sinon": "^7.3.1",
     "sinon-chai": "^3.3.0",
-    "webpack-bundle-analyzer": "^3.3.2"
+    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-dev-server": "^3.7.2"
   },
   "scripts": {
     "analyze": "mkdir -p artifacts/build && NODE_ENV=production webpack -p --json > artifacts/build/release.stats.json && webpack-bundle-analyzer --mode static --no-open --report artifacts/build/release.analyze.html artifacts/build/release.stats.json dist",
@@ -53,6 +54,7 @@
     "lint": "eslint --fix .",
     "pre-commit": "yarn test && yarn ci-lint && yarn release && yarn bundlesize",
     "release": "NODE_ENV=production webpack -p",
+    "start": "webpack-dev-server --hot",
     "test": "NODE_ENV=test mocha 'test/suite/**/*.spec.js'"
   }
 }
