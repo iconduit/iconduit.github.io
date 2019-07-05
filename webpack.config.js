@@ -72,6 +72,7 @@ module.exports = (_, {mode = 'development'} = {}) => {
     stats: {
       children: isProduction,
       entrypoints: isProduction,
+      excludeAssets: isProduction ? () => false : /\.map$/,
       modules: isProduction,
     },
   }
