@@ -1,0 +1,48 @@
+{
+  "background_color": "#D5415C",
+  "categories": [
+    "utilities"
+  ],
+  "description": "The Iconduit brand in \"Material Design\" style.",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "sizes": "1024x1024",
+      "src": "/web-app-icon-masked-1024x1024.2d7d9f8256537cbd3ee07c35a2a047d0.png",
+      "type": "image/png"
+    },
+    {
+      "sizes": "512x512",
+      "src": "/web-app-icon-masked-512x512.583947ea36647a3034296150456c987c.png",
+      "type": "image/png"
+    },
+    {
+      "sizes": "192x192",
+      "src": "/web-app-icon-masked-192x192.7a5abaa581a3ee403b313a0b56a68b7b.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "sizes": "1024x1024",
+      "src": "/web-app-icon-maskable-1024x1024.cf3247be732597205fdbc4e24028153e.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "/web-app-icon-maskable-512x512.527842aad889b414260b766bc94fc221.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "sizes": "192x192",
+      "src": "/web-app-icon-maskable-192x192.32c527c049e06f67c0cc5698b2cb904d.png",
+      "type": "image/png"
+    }
+  ],
+  "lang": "en-US",
+  "name": "Iconduit (Material)",
+  "short_name": "Iconduit",
+  "start_url": ".",
+  "theme_color": "#D5415C"
+}
