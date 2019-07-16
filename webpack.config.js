@@ -40,6 +40,7 @@ module.exports = (_, {mode = 'development'} = {}) => {
       new GitVersionPlugin({version}),
       new IconduitHtmlPlugin({manifestPath}),
       new GenerateSW({
+        cacheId: 'iconduit-website',
         cleanupOutdatedCaches: true,
         exclude: [
           /\.map$/,
