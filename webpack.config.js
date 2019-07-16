@@ -33,7 +33,10 @@ module.exports = (_, {mode = 'development'} = {}) => {
     mode,
     plugins: [
       new CleanPlugin(),
-      new HtmlPlugin({title: name}),
+      new HtmlPlugin({
+        template: 'src/index.html',
+        title: name,
+      }),
       new GitVersionPlugin({version}),
       new IconduitHtmlPlugin({manifestPath}),
       new GenerateSW(),
