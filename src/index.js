@@ -10,9 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(error => {
-      console.error('Unable to register service worker:', error)
-    })
+  import(/* webpackChunkName: "workbox" */ 'workbox-window').then(({Workbox}) => {
+    new Workbox('/service-worker.js').register()
   })
 }

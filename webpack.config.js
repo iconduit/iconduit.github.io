@@ -92,18 +92,6 @@ module.exports = (_, {mode = 'development'} = {}) => {
       ],
     },
     optimization: {
-      runtimeChunk: 'single',
-      splitChunks: {
-        chunks: 'all',
-        cacheGroups: {
-          vendors: {
-            name: 'vendors',
-            test: /[\\/]node_modules[\\/]/,
-            enforce: true,
-          },
-          default: false,
-        },
-      },
       minimizer: [
         new TerserPlugin({
           sourceMap: true,
