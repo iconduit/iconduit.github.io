@@ -39,7 +39,19 @@ module.exports = (_, {mode = 'development'} = {}) => {
       }),
       new GitVersionPlugin({version}),
       new IconduitHtmlPlugin({manifestPath}),
-      new GenerateSW(),
+      new GenerateSW({
+        cleanupOutdatedCaches: true,
+        exclude: [
+          /\.map$/,
+          /\bapple-touch-startup[^/]*\.png$/,
+          /\bbrowserconfig[^/]*\.xml$/,
+          /\bopen-graph[^/]*\.png$/,
+          /\bsafari-mask-icon[^/]*\.svg$/,
+          /\btwitter-card[^/]*\.png$/,
+          /\bVERSION$/,
+          /\bwindows-tile[^/]*\.png$/,
+        ],
+      }),
       new CopyPlugin([
         {
           from: consumer.absoluteImagePath('faviconIco', 'container'),
