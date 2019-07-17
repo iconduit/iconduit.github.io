@@ -1528,6 +1528,18 @@
       },
       {
         "attributes": {
+          "content": "<%- manifest.viewport %>",
+          "name": "viewport"
+        },
+        "children": [
+        ],
+        "isSelfClosing": true,
+        "predicate": [
+        ],
+        "tag": "meta"
+      },
+      {
+        "attributes": {
           "content": "<%- manifest.color.theme %>",
           "name": "theme-color"
         },
@@ -1597,5 +1609,6 @@
     "output": ".",
     "scope": ".",
     "start": "."
-  }
+  },
+  "viewport": "width=device-width, initial-scale=1"
 }
