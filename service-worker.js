@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.01942ae5839aa25beb92b9e0f7010e4b.js"
+  "/precache-manifest.5cc76f4b1474aaa260a1e3f83552cc02.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "iconduit-website"});
