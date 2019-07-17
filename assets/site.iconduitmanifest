@@ -1473,6 +1473,7 @@
         ],
         "isSelfClosing": true,
         "predicate": [
+          "<%- (mode => [\"standalone\", \"fullscreen\"].includes(mode))(manifest.displayMode) ? \"true\" : \"\" %>"
         ],
         "tag": "meta"
       },
@@ -1485,6 +1486,7 @@
         ],
         "isSelfClosing": true,
         "predicate": [
+          "<%- (mode => [\"standalone\", \"fullscreen\"].includes(mode))(manifest.displayMode) ? \"true\" : \"\" %>"
         ],
         "tag": "meta"
       },
@@ -1514,8 +1516,8 @@
       },
       {
         "attributes": {
-          "content": "<%- manifest.viewport %>",
-          "name": "viewport"
+          "content": "<%- manifest.description %>",
+          "name": "description"
         },
         "children": [
         ],
@@ -1595,6 +1597,5 @@
     "output": ".",
     "scope": ".",
     "start": "."
-  },
-  "viewport": "width=device-width, initial-scale=1"
+  }
 }
