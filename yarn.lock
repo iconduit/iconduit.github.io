@@ -760,7 +760,7 @@
   dependencies:
     "@hapi/hoek" "8.x.x"
 
-"@iconduit/consumer@^0.1.15", "@iconduit/consumer@^0.1.16":
+"@iconduit/consumer@^0.1.16":
   version "0.1.16"
   resolved "https://registry.yarnpkg.com/@iconduit/consumer/-/consumer-0.1.16.tgz#a292011665ea5fd0f5c344527200b022145fb422"
   integrity sha512-OlADbD9GrETOkzSY8qKBmMQGyO5X4FKPbQhPXuRDF3x7We0cPW42aGFEGqjjBFYA6GuEc5CZmWoigWFHI/QQZw==
@@ -769,14 +769,14 @@
     escape-html "^1.0.3"
     url-parse "^1.4.7"
 
-"@iconduit/html-webpack-plugin@^0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@iconduit/html-webpack-plugin/-/html-webpack-plugin-0.1.5.tgz#6de3b843ad8faf3d8c4274fdce7fd86293df62ab"
-  integrity sha512-o5P4Iz4JVLp0kXn2jRVprlUgFwH96C3F0lPzXvuZdK3r8dBCjBzelmmKG63xRaCTzOgTMEX9LrY+AbOURC9bCA==
+"@iconduit/html-webpack-plugin@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@iconduit/html-webpack-plugin/-/html-webpack-plugin-0.1.7.tgz#5af3b7e1cef1e639deff68811f78e6aef437794c"
+  integrity sha512-P/tzFdQxSyoqSHj/yv029Ry1qdD0yPff0f/zFHXmGtWN0kh6zLHJymFqOgzCmXdxmvbl6FU3GSyT2vP4b2j9AA==
   dependencies:
-    "@iconduit/consumer" "^0.1.15"
+    "@iconduit/consumer" "^0.1.16"
     loader-utils "^1.2.3"
-    schema-utils "^1.0.0"
+    schema-utils "^2.0.0"
 
 "@istanbuljs/nyc-config-babel@^2.1.1":
   version "2.1.1"
