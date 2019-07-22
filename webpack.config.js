@@ -29,6 +29,30 @@ module.exports = (_, {mode = 'development'} = {}) => {
     },
   }
 
+  const networkFirstAssets = [
+    /\bapple-touch-startup[^/]*\.png$/,
+    /\bbrowserconfig[^/]*\.xml$/,
+    /\bopen-graph[^/]*\.png$/,
+    /\bsafari-mask-icon[^/]*\.svg$/,
+    /\btwitter-card[^/]*\.png$/,
+    /\bwindows-tile[^/]*\.png$/,
+  ]
+
+  const networkOnlyAssets = [
+    /\bVERSION$/,
+  ]
+
+  const workboxExclude = [
+    /\.map$/,
+    ...networkFirstAssets,
+    ...networkOnlyAssets,
+  ]
+
+  const workboxRuntimeCaching = [
+    ...networkFirstAssets.map(urlPattern => ({urlPattern, handler: 'NetworkFirst'})),
+    ...networkOnlyAssets.map(urlPattern => ({urlPattern, handler: 'NetworkOnly'})),
+  ]
+
   return {
     mode,
     plugins: [
@@ -42,16 +66,8 @@ module.exports = (_, {mode = 'development'} = {}) => {
       new GenerateSW({
         cacheId: 'iconduit-website',
         cleanupOutdatedCaches: true,
-        exclude: [
-          /\.map$/,
-          /\bapple-touch-startup[^/]*\.png$/,
-          /\bbrowserconfig[^/]*\.xml$/,
-          /\bopen-graph[^/]*\.png$/,
-          /\bsafari-mask-icon[^/]*\.svg$/,
-          /\btwitter-card[^/]*\.png$/,
-          /\bVERSION$/,
-          /\bwindows-tile[^/]*\.png$/,
-        ],
+        exclude: workboxExclude,
+        runtimeCaching: workboxRuntimeCaching,
       }),
       new CopyPlugin([
         {
