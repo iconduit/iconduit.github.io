@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.ac84b54e3ebe93e423958373cde746e0.js"
+  "/precache-manifest.0570e8801811027e685508e7399e9f1b.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "iconduit-website"});
@@ -35,10 +35,10 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.precaching.cleanupOutdatedCaches();
 
-workbox.routing.registerRoute(/\bapple-touch-startup[^\/]*\.png$/, new workbox.strategies.NetworkFirst(), 'GET');
-workbox.routing.registerRoute(/\bbrowserconfig[^\/]*\.xml$/, new workbox.strategies.NetworkFirst(), 'GET');
-workbox.routing.registerRoute(/\bopen-graph[^\/]*\.png$/, new workbox.strategies.NetworkFirst(), 'GET');
-workbox.routing.registerRoute(/\bsafari-mask-icon[^\/]*\.svg$/, new workbox.strategies.NetworkFirst(), 'GET');
-workbox.routing.registerRoute(/\btwitter-card[^\/]*\.png$/, new workbox.strategies.NetworkFirst(), 'GET');
-workbox.routing.registerRoute(/\bwindows-tile[^\/]*\.png$/, new workbox.strategies.NetworkFirst(), 'GET');
+workbox.routing.registerRoute(/\bapple-touch-startup[^/]*\.png$/, new workbox.strategies.NetworkFirst(), 'GET');
+workbox.routing.registerRoute(/\bbrowserconfig[^/]*\.xml$/, new workbox.strategies.NetworkFirst(), 'GET');
+workbox.routing.registerRoute(/\bopen-graph[^/]*\.png$/, new workbox.strategies.NetworkFirst(), 'GET');
+workbox.routing.registerRoute(/\bsafari-mask-icon[^/]*\.svg$/, new workbox.strategies.NetworkFirst(), 'GET');
+workbox.routing.registerRoute(/\btwitter-card[^/]*\.png$/, new workbox.strategies.NetworkFirst(), 'GET');
+workbox.routing.registerRoute(/\bwindows-tile[^/]*\.png$/, new workbox.strategies.NetworkFirst(), 'GET');
 workbox.routing.registerRoute(/\bVERSION$/, new workbox.strategies.NetworkOnly(), 'GET');

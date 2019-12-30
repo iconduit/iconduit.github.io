@@ -9,7 +9,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/favicon-32x32.dc737460898d85f2410ce137e8d4a069.png"
   },
   {
-    "revision": "9019d8a402203a1b2b4483f1f7ad4212",
+    "revision": "f67b0774cfc09e5b115c42a41a473d55",
     "url": "/index.html"
   },
   {
