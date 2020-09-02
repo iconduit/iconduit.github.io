@@ -4,7 +4,6 @@ node_js: [node]
 cache: yarn
 install: yarn install --frozen-lockfile
 script:
-- yarn test
 - yarn ci-lint
 - yarn release
 - yarn bundlesize
