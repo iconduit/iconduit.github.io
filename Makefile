@@ -38,6 +38,7 @@ artifacts/bundlesize.touch: artifacts/webpack/build/production
 	@touch "$@"
 
 artifacts/site: artifacts/webpack/build/production README.md
+	@rm -rf "$@"
 	@mkdir -p "$(@D)"
 
 	cp -a "$<" "$@"
