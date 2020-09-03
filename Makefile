@@ -43,3 +43,4 @@ artifacts/site: artifacts/webpack/build/production README.md
 
 	cp -a "$<" "$@"
 	cp README.md "$@"
+	touch "$@/.nojekyll"
