@@ -6,8 +6,8 @@ const CopyPlugin = require('copy-webpack-plugin')
 const GitVersionPlugin = require('@eloquent/git-version-webpack-plugin')
 const HtmlPlugin = require('html-webpack-plugin')
 const IconduitHtmlPlugin = require('@iconduit/html-webpack-plugin')
+const StatsPlugin = require('stats-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-const {CleanWebpackPlugin: CleanPlugin} = require('clean-webpack-plugin')
 const {GenerateSW} = require('workbox-webpack-plugin')
 
 const consumer = require('./assets/iconduit.consumer.js')
@@ -17,6 +17,7 @@ const version = travisCommit && travisCommit.substring(0, 7)
 
 const srcPath = join(__dirname, 'src')
 const manifestPath = join(__dirname, 'assets/site.iconduitmanifest')
+const buildPath = join(__dirname, 'artifacts/webpack/build')
 
 module.exports = (_, {mode = 'development'} = {}) => {
   const isProduction = mode === 'production'
@@ -25,6 +26,7 @@ module.exports = (_, {mode = 'development'} = {}) => {
   const fileLoader = {
     loader: 'file-loader',
     options: {
+      esModule: false, // app-manifest-loader doesn't like ES modules (yet)
       name: isProduction ? '[name].[hash].[ext]' : '[name].[ext]',
     },
   }
@@ -56,7 +58,7 @@ module.exports = (_, {mode = 'development'} = {}) => {
   return {
     mode,
     plugins: [
-      new CleanPlugin(),
+      new StatsPlugin('.stats.json'),
       new HtmlPlugin({
         template: 'src/index.html',
         title: name,
@@ -69,14 +71,17 @@ module.exports = (_, {mode = 'development'} = {}) => {
         exclude: workboxExclude,
         runtimeCaching: workboxRuntimeCaching,
       }),
-      new CopyPlugin([
-        {
-          from: consumer.absoluteImagePath('faviconIco', 'container'),
-        },
-      ]),
+      new CopyPlugin({
+        patterns: [
+          {
+            from: consumer.absoluteImagePath('faviconIco', 'container'),
+          },
+        ],
+      }),
     ],
     devtool: 'source-map',
     output: {
+      path: join(buildPath, isProduction ? 'production' : 'development'),
       filename: isProduction ? '[name].[contenthash].js' : '[name].js',
       publicPath: '/',
     },
@@ -111,7 +116,6 @@ module.exports = (_, {mode = 'development'} = {}) => {
     optimization: {
       minimizer: [
         new TerserPlugin({
-          sourceMap: true,
           terserOptions: {
             compress: {
               defaults: false,
