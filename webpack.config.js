@@ -25,6 +25,7 @@ module.exports = (_, {mode = 'development'} = {}) => {
   const fileLoader = {
     loader: 'file-loader',
     options: {
+      esModule: false, // app-manifest-loader doesn't like ES modules (yet)
       name: isProduction ? '[name].[hash].[ext]' : '[name].[ext]',
     },
   }
@@ -69,11 +70,13 @@ module.exports = (_, {mode = 'development'} = {}) => {
         exclude: workboxExclude,
         runtimeCaching: workboxRuntimeCaching,
       }),
-      new CopyPlugin([
-        {
-          from: consumer.absoluteImagePath('faviconIco', 'container'),
-        },
-      ]),
+      new CopyPlugin({
+        patterns: [
+          {
+            from: consumer.absoluteImagePath('faviconIco', 'container'),
+          },
+        ],
+      }),
     ],
     devtool: 'source-map',
     output: {
@@ -111,7 +114,6 @@ module.exports = (_, {mode = 'development'} = {}) => {
     optimization: {
       minimizer: [
         new TerserPlugin({
-          sourceMap: true,
           terserOptions: {
             compress: {
               defaults: false,
