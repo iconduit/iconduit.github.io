@@ -14,13 +14,13 @@
     "@iconduit/html-webpack-plugin": "^0.1.10",
     "app-manifest-loader": "^2.4.0",
     "babel-loader": "^8.0.6",
-    "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.1.0",
     "core-js": "^3.1.4",
     "file-loader": "^6.1.0",
     "html-webpack-plugin": "^4.4.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "stats-webpack-plugin": "^0.7.0",
     "terser-webpack-plugin": "^4.1.0",
     "webpack": "^4.36.1",
     "webpack-cli": "^3.3.5",
@@ -40,15 +40,5 @@
     "eslint-plugin-standard": "^4.0.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-dev-server": "^3.7.2"
-  },
-  "scripts": {
-    "analyze": "mkdir -p artifacts/build && NODE_ENV=production webpack -p --json > artifacts/build/release.stats.json && webpack-bundle-analyzer --mode static --no-open --report artifacts/build/release.analyze.html artifacts/build/release.stats.json dist",
-    "analyze-open": "open artifacts/build/release.analyze.html",
-    "bundlesize": "GITHUB_TOKEN= bundlesize",
-    "ci-lint": "eslint .",
-    "lint": "eslint --fix .",
-    "pre-commit": "yarn test && yarn ci-lint && yarn release && yarn bundlesize",
-    "release": "NODE_ENV=production webpack -p",
-    "start": "webpack-dev-server --hot"
   }
 }

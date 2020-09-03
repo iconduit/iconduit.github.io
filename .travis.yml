@@ -2,19 +2,17 @@ dist: xenial
 language: node_js
 node_js: [node]
 cache: yarn
-install: yarn install --frozen-lockfile
+install: make node_modules
 script:
-- yarn ci-lint
-- yarn release
-- yarn bundlesize
-- cp README.md dist/
+- make ci
+- make artifacts/site
 deploy:
   provider: pages
   skip_cleanup: true
   github_token:
     secure: "XWIe9W4umv3OysOGnfEUXdsTB+2VXlTSVx5XjFyMpONhocW5dYCnsFxGNGGPnBREL4vAcOejK5DHo1z/1yjr9XyhIv6uo14gAQ55bS84CcAWx1OnmP1gZG3hbWTn+wKJYC4zoolymq98ySNkac6vAin8OTWQrLn72HHw1TGkDWZS96rOf0I6cb89chC28dxtq1enmk77fnZc4kkHF2s9qEmfb5L4hrNfe8yksj2DXyT9viXugQxByN4kYqT+eR/DUar9UmtZu48nr++cQtWOV5oYBt020enMWwqR4L0HWLU8cNS26MO6QDQ+ZqHCBjVDpEQtoBkAmexuHV/x6HASkn52SNv0wbbuhsngUzAqHkvYgFS4x8RHUMcaWxD1MHyRIgrJdUT8N/7qBtxjqK4khD3GM6Jory3XNN1CQsnujKhkG4uWJoW+Vf7fVgEFiOdtalsM1n61q4uwA+0AKAPGxV8OjXi55V7mRUi2dZVZsFIWKsUojB/0h0EY7BHD1EJbDa3y6O6WxQ0om2ZGVUHJhWxl3eg/XUnsNEBVr0bVu3R/tOJevYVCKYnEUwCzm7GMtQHZYGF8YALBuYLZEzOyo46nlQflGMYyunWkcd3jmJmljpPY6HODbZIF05gP61qAxfzPWWHH8I0Vjxk5QBWsbcMg5a8opRYSJFEzZphddK4="
   keep_history: true
-  local_dir: dist
+  local_dir: artifacts/site
   target_branch: master
   on:
     branch: source
