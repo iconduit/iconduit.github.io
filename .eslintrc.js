@@ -1,7 +1,6 @@
 /* eslint-disable import/no-commonjs */
 
 module.exports = {
-  parser: 'babel-eslint',
   extends: 'standard',
   plugins: [
     'react',
@@ -100,7 +99,6 @@ module.exports = {
     'react/jsx-curly-brace-presence': 'error',
     'react/jsx-curly-spacing': 'error',
     'react/jsx-equals-spacing': 'error',
-    'react/jsx-filename-extension': 'error',
     'react/jsx-first-prop-new-line': 'error',
     'react/jsx-handler-names': 'error',
     'react/jsx-indent': ['error', 2],

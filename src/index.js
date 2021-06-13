@@ -1,6 +1,6 @@
 import {render} from 'react-dom'
 
-import App from './component/App.jsx'
+import App from './component/App.js'
 
 document.addEventListener('DOMContentLoaded', function () {
   const container = document.createElement('span')

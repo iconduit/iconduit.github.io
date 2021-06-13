@@ -10,7 +10,7 @@
     },
     {
       "path": "artifacts/webpack/build/production/workbox*.js",
-      "maxSize": "5Kb"
+      "maxSize": "6Kb"
     }
   ]
 }

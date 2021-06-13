@@ -22,12 +22,12 @@ precommit:: artifacts/bundlesize.touch
 
 # run --- Run the application locally.
 .PHONY: run
-run: webpack-dev-server
+run: webpack-serve
 
-# webpack-dev-server --- Run the Webpack development server.
-.PHONY: webpack-dev-server
-webpack-dev-server: node_modules
-	node_modules/.bin/webpack-dev-server --hot
+# webpack-serve --- Run the Webpack development server.
+.PHONY: webpack-serve
+webpack-serve: node_modules
+	node_modules/.bin/webpack serve
 
 ################################################################################
 
