@@ -1,6 +1,6 @@
 import {render} from 'react-dom'
 
-import App from './component/App.js'
+import App from './component/App'
 
 document.addEventListener('DOMContentLoaded', function () {
   const container = document.createElement('span')
@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
   render(App(), container)
 })
 
-if ('serviceWorker' in navigator) {
-  import(/* webpackChunkName: "workbox" */ 'workbox-window').then(({Workbox}) => {
-    new Workbox('/service-worker.js').register()
-  })
-}
+// if ('serviceWorker' in navigator) {
+//   import(/* webpackChunkName: "workbox" */ 'workbox-window').then(({Workbox}) => {
+//     new Workbox('/sw.js').register()
+//   })
+// }

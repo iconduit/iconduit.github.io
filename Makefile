@@ -1,7 +1,6 @@
 -include .makefiles/Makefile
 -include .makefiles/pkg/js/v1/Makefile
 -include .makefiles/pkg/js/v1/with-yarn.mk
--include .makefiles/pkg/js/v1/with-webpack.mk
 
 .makefiles/%:
 	@curl -sfL https://makefiles.dev/v1 | bash /dev/stdin "$@"
@@ -20,24 +19,24 @@ ci:: artifacts/bundlesize.touch
 .PHONY: precommit
 precommit:: artifacts/bundlesize.touch
 
-# run --- Run the application locally.
-.PHONY: run
-run: webpack-serve
+# # run --- Run the application locally.
+# .PHONY: run
+# run: webpack-serve
 
-# webpack-serve --- Run the Webpack development server.
-.PHONY: webpack-serve
-webpack-serve: node_modules
-	node_modules/.bin/webpack serve
+# # webpack-serve --- Run the Webpack development server.
+# .PHONY: webpack-serve
+# webpack-serve: node_modules
+# 	node_modules/.bin/webpack serve
 
 ################################################################################
 
-artifacts/bundlesize.touch: artifacts/webpack/build/production
+artifacts/bundlesize.touch: artifacts/vite/build/production
 	GITHUB_TOKEN= node_modules/.bin/bundlesize
 
 	@mkdir -p "$(@D)"
 	@touch "$@"
 
-artifacts/site: artifacts/webpack/build/production README.md
+artifacts/site: artifacts/vite/build/production README.md
 	@rm -rf "$@"
 	@mkdir -p "$(@D)"
 

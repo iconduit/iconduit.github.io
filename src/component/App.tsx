@@ -1,4 +1,6 @@
-import React, {Fragment} from 'react'
+import * as React from 'react'
+
+const {Fragment} = React
 
 export default function App () {
   return <Fragment>

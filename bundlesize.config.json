@@ -1,15 +1,15 @@
 {
   "files": [
     {
-      "path": "artifacts/webpack/build/production/main*.js",
+      "path": "artifacts/vite/build/production/main*.js",
       "maxSize": "50Kb"
     },
     {
-      "path": "artifacts/webpack/build/production/polyfill*.js",
+      "path": "artifacts/vite/build/production/polyfill*.js",
       "maxSize": "50Kb"
     },
     {
-      "path": "artifacts/webpack/build/production/workbox*.js",
+      "path": "artifacts/vite/build/production/workbox*.js",
       "maxSize": "6Kb"
     }
   ]
