@@ -8,26 +8,12 @@ export interface ViteIconduitOptions {
 }
 
 export function viteIconduitPlugin (options: ViteIconduitOptions): Plugin[] {
-  let consumer
   let manifestPath: string
   let webAppManifestOutputPath: string
 
   return [
     {
       name: 'vite-plugin-iconduit',
-
-      async buildStart () {
-        consumer = readConsumer(manifestPath)
-
-        const webAppManifestPath = consumer.absoluteDocumentPath('webAppManifest')
-        const webAppManifestSource = await readFile(webAppManifestPath)
-
-        this.emitFile({
-          type: 'asset',
-          fileName: webAppManifestOutputPath,
-          source: webAppManifestSource,
-        })
-      },
 
       async configResolved (config) {
         const {
@@ -41,6 +27,12 @@ export function viteIconduitPlugin (options: ViteIconduitOptions): Plugin[] {
         webAppManifestOutputPath = join(assetsDir, 'app.webmanifest')
       },
 
+      async buildStart () {
+        const consumer = readConsumer(manifestPath)
+
+        processWebAppManifest(this, consumer.absoluteDocumentPath('webAppManifest'))
+      },
+
       async transformIndexHtml () {
         return [
           {tag: 'link', attrs: {rel: 'manifest', href: webAppManifestOutputPath}},
@@ -48,4 +40,16 @@ export function viteIconduitPlugin (options: ViteIconduitOptions): Plugin[] {
       },
     },
   ]
+
+  async function processWebAppManifest (context, webAppManifestPath: string|null): void {
+    if (typeof webAppManifestPath !== 'string') return
+
+    const webAppManifestSource = await readFile(webAppManifestPath)
+
+    context.emitFile({
+      type: 'asset',
+      fileName: webAppManifestOutputPath,
+      source: webAppManifestSource,
+    })
+  }
 }
