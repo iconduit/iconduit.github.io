@@ -1,8 +1,14 @@
 /* eslint-disable import/no-commonjs */
 
 module.exports = {
-  extends: 'standard',
+  extends: [
+    'standard-with-typescript',
+  ],
+  parserOptions: {
+    project: './tsconfig.json',
+  },
   plugins: [
+    '@typescript-eslint',
     'react',
   ],
   settings: {
@@ -151,27 +157,27 @@ module.exports = {
     'react/style-prop-object': 'error',
     'react/void-dom-elements-no-children': 'error',
 
-    'import/default': 'error',
-    'import/export': 'error',
-    'import/extensions': ['error', 'ignorePackages'],
-    'import/first': 'error',
-    'import/named': 'error',
-    'import/namespace': 'error',
-    'import/newline-after-import': 'error',
-    'import/no-amd': 'error',
-    'import/no-commonjs': 'error',
-    'import/no-cycle': 'error',
-    'import/no-deprecated': 'error',
-    'import/no-duplicates': 'error',
-    'import/no-extraneous-dependencies': 'error',
-    'import/no-mutable-exports': 'error',
-    'import/no-named-as-default-member': 'error',
-    'import/no-named-default': 'error',
-    'import/no-self-import': 'error',
-    'import/no-unresolved': 'error',
-    'import/no-useless-path-segments': 'error',
-    'import/order': ['error', {
-      'newlines-between': 'always',
-    }],
+    // 'import/default': 'error',
+    // 'import/export': 'error',
+    // 'import/extensions': ['error', 'ignorePackages'],
+    // 'import/first': 'error',
+    // 'import/named': 'error',
+    // 'import/namespace': 'error',
+    // 'import/newline-after-import': 'error',
+    // 'import/no-amd': 'error',
+    // 'import/no-commonjs': 'error',
+    // 'import/no-cycle': 'error',
+    // 'import/no-deprecated': 'error',
+    // 'import/no-duplicates': 'error',
+    // 'import/no-extraneous-dependencies': 'error',
+    // 'import/no-mutable-exports': 'error',
+    // 'import/no-named-as-default-member': 'error',
+    // 'import/no-named-default': 'error',
+    // 'import/no-self-import': 'error',
+    // 'import/no-unresolved': 'error',
+    // 'import/no-useless-path-segments': 'error',
+    // 'import/order': ['error', {
+    //   'newlines-between': 'always',
+    // }],
   },
 }

@@ -1,9 +1,7 @@
-import * as React from 'react'
+import React from 'react'
 
-const {Fragment} = React
-
-export default function App () {
-  return <Fragment>
+export default function App (): JSX.Element {
+  return <>
     <h1>Iconduit</h1>
-  </Fragment>
+  </>
 }
