@@ -15,6 +15,7 @@ export default defineConfig(({mode}) => {
     root,
     build: {
       assetsInlineLimit: 0,
+      emptyOutDir: true,
       outDir,
     },
     plugins: [
