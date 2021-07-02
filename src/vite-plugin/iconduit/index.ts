@@ -1,6 +1,7 @@
 import {readConsumer} from '@iconduit/consumer'
 import {basename, dirname, join, resolve} from 'path'
 import {readFile} from 'fs/promises'
+import type {PluginContext} from 'rollup'
 import type {Plugin} from 'vite'
 import urlParse from 'url-parse'
 
@@ -10,6 +11,7 @@ export interface ViteIconduitOptions {
 
 export function viteIconduitPlugin (options: ViteIconduitOptions): Plugin[] {
   let assetsDir: string
+  let emittedAssets: {[src: string]: string}
   let manifestPath: string
   // let jsonStringify: (any) => string
   let webAppManifestOutputPath: string
@@ -28,7 +30,12 @@ export function viteIconduitPlugin (options: ViteIconduitOptions): Plugin[] {
       async buildStart () {
         const consumer = readConsumer(manifestPath)
 
-        processWebAppManifest(this, consumer.absoluteDocumentPath('webAppManifest'))
+        emittedAssets = {}
+        await processWebAppManifest(this, consumer.absoluteDocumentPath('webAppManifest'))
+      },
+
+      async generateBundle () {
+        console.log(emittedAssets)
       },
 
       async transformIndexHtml () {
@@ -39,17 +46,20 @@ export function viteIconduitPlugin (options: ViteIconduitOptions): Plugin[] {
     },
   ]
 
-  async function processWebAppManifest (context, webAppManifestPath: string|null): void {
+  async function processWebAppManifest (
+    context: PluginContext,
+    webAppManifestPath: string|null,
+  ): Promise<void> {
     if (typeof webAppManifestPath !== 'string') return
 
     const webAppManifestDirPath = dirname(webAppManifestPath)
-    const webAppManifest = JSON.parse(await readFile(webAppManifestPath))
+    const webAppManifest = JSON.parse((await readFile(webAppManifestPath)).toString('utf-8'))
     const {icons = [], screenshots = []} = webAppManifest
     const images = [...icons, ...screenshots]
 
-    return await Promise.all(images.map(async image => {
-      const srcUrl = urlParse(image.src)
-      const imagePath = resolve(webAppManifestDirPath, srcUrl.pathname)
+    await Promise.all(images.map(async ({src}) => {
+      const {pathname} = urlParse(src)
+      const imagePath = resolve(webAppManifestDirPath, pathname)
 
       const referenceId = context.emitFile({
         type: 'asset',
@@ -57,7 +67,7 @@ export function viteIconduitPlugin (options: ViteIconduitOptions): Plugin[] {
         source: await readFile(imagePath),
       })
 
-      return {referenceId, srcUrl}
+      emittedAssets[src] = referenceId
     }))
   }
 }

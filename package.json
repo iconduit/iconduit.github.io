@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@babel/register": "^7.5.5",
+    "@types/url-parse": "^1.4.3",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
     "bundlesize": "^0.18.1",
