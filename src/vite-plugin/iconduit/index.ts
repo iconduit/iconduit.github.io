@@ -8,9 +8,9 @@ export interface ViteIconduitOptions {
 }
 
 export function viteIconduitPlugin (options: ViteIconduitOptions): Plugin[] {
-  let assetsDir: string
   let consumer
   let manifestPath: string
+  let webAppManifestOutputPath: string
 
   return [
     {
@@ -24,19 +24,26 @@ export function viteIconduitPlugin (options: ViteIconduitOptions): Plugin[] {
 
         this.emitFile({
           type: 'asset',
-          fileName: join(assetsDir, 'app.webmanifest'),
+          fileName: webAppManifestOutputPath,
           source: webAppManifestSource,
         })
       },
 
       async configResolved (config) {
-        assetsDir = config.build.assetsDir
-        manifestPath = resolve(config.root, options.manifestPath)
+        const {
+          build: {
+            assetsDir,
+          },
+          root,
+        } = config
+
+        manifestPath = resolve(root, options.manifestPath)
+        webAppManifestOutputPath = join(assetsDir, 'app.webmanifest')
       },
 
       async transformIndexHtml () {
         return [
-          {tag: 'link', attrs: {rel: 'manifest', href: 'iconduit/site.webmanifest'}},
+          {tag: 'link', attrs: {rel: 'manifest', href: webAppManifestOutputPath}},
         ]
       },
     },
