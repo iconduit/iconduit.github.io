@@ -9,6 +9,7 @@ export interface ViteIconduitOptions {
 
 export function viteIconduitPlugin (options: ViteIconduitOptions): Plugin[] {
   let manifestPath: string
+  let jsonStringify: (any) => string
   let webAppManifestOutputPath: string
 
   return [
@@ -16,15 +17,9 @@ export function viteIconduitPlugin (options: ViteIconduitOptions): Plugin[] {
       name: 'vite-plugin-iconduit',
 
       async configResolved (config) {
-        const {
-          build: {
-            assetsDir,
-          },
-          root,
-        } = config
-
-        manifestPath = resolve(root, options.manifestPath)
-        webAppManifestOutputPath = join(assetsDir, 'app.webmanifest')
+        manifestPath = resolve(config.root, options.manifestPath)
+        jsonStringify = value => JSON.stringify(value, null, config.mode === 'production' ? 0 : 2)
+        webAppManifestOutputPath = join(config.build.assetsDir, 'app.webmanifest')
       },
 
       async buildStart () {
@@ -44,12 +39,12 @@ export function viteIconduitPlugin (options: ViteIconduitOptions): Plugin[] {
   async function processWebAppManifest (context, webAppManifestPath: string|null): void {
     if (typeof webAppManifestPath !== 'string') return
 
-    const webAppManifestSource = await readFile(webAppManifestPath)
+    const webAppManifest = JSON.parse(await readFile(webAppManifestPath))
 
     context.emitFile({
       type: 'asset',
       fileName: webAppManifestOutputPath,
-      source: webAppManifestSource,
+      source: jsonStringify(webAppManifest),
     })
   }
 }
