@@ -43,13 +43,17 @@ export function webAppManifest (options: Options): Plugin {
 
     async buildStart (): Promise<void> {
       emittedImages = {}
-
       const basePath = dirname(inputPath)
+
+      this.addWatchFile(inputPath)
+
       const manifestJson = await readFile(inputPath)
       manifest = JSON.parse(manifestJson.toString('utf-8'))
 
       await Promise.all(manifestImages(manifest).map(async ({src}) => {
         const imagePath = resolve(basePath, src)
+
+        this.addWatchFile(imagePath)
 
         const referenceId = this.emitFile({
           type: 'asset',
