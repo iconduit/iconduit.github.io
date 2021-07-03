@@ -1,3 +1,7 @@
+JS_SOURCE_FILES += $(shell PATH="$(PATH)" git-find '*.ts')
+
+################################################################################
+
 -include .makefiles/Makefile
 -include .makefiles/pkg/js/v1/Makefile
 -include .makefiles/pkg/js/v1/with-yarn.mk
