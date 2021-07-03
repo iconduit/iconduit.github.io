@@ -4,12 +4,13 @@ import reactRefreshPlugin from '@vitejs/plugin-react-refresh'
 // import {generateSW} from 'rollup-plugin-workbox'
 import {defineConfig} from 'vite'
 
-import {viteIconduitPlugin as iconduitPlugin} from './src/vite-plugin/iconduit'
+import {webAppManifest} from './src/rollup-plugin/web-app-manifest'
+// import {viteIconduitPlugin as iconduitPlugin} from './src/vite-plugin/iconduit'
 
 export default defineConfig(({mode}) => {
   // Vite seems to magically make __dirname available
   const root = join(__dirname, 'src')
-  const outDir = join(__dirname, 'artifacts/vite/build', mode)
+  const outDir = join(__dirname, 'artifacts', 'vite', 'build', mode)
 
   return {
     root,
@@ -23,10 +24,13 @@ export default defineConfig(({mode}) => {
       //   globDirectory: outDir,
       //   swDest: join(outDir, 'sw.js'),
       // }),
-      iconduitPlugin({
-        manifestPath: 'iconduit/site.iconduitmanifest',
-      }),
+      // iconduitPlugin({
+      //   manifestPath: 'iconduit/site.iconduitmanifest',
+      // }),
       reactRefreshPlugin(),
+      webAppManifest({
+        inputPath: join(root, 'iconduit', 'site.webmanifest'),
+      }),
     ],
     // assetsInclude: ['.webmanifest'],
   }
