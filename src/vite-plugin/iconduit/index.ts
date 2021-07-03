@@ -1,56 +1,82 @@
 import {readConsumer} from '@iconduit/consumer'
-import {basename, dirname, join, resolve} from 'path'
+import {basename, dirname, join, relative, resolve} from 'path'
 import {readFile} from 'fs/promises'
 import type {PluginContext} from 'rollup'
 import type {Plugin} from 'vite'
-import urlParse from 'url-parse'
 
 export interface ViteIconduitOptions {
   manifestPath: string
 }
 
 export function viteIconduitPlugin (options: ViteIconduitOptions): Plugin[] {
-  let assetsDir: string
   let emittedAssets: {[src: string]: string}
+  let jsonStringify: (any) => string
   let manifestPath: string
-  // let jsonStringify: (any) => string
+  let outDir: string
+  let webAppManifest: WebAppManifest|undefined
   let webAppManifestOutputPath: string
+  let webAppManifestOutputUrl: string
 
   return [
     {
       name: 'vite-plugin-iconduit',
 
       async configResolved (config) {
-        assetsDir = config.build.assetsDir
+        outDir = config.build.outDir
+
+        const assetsDir = config.build.assetsDir
+        const absoluteAssetsDir = resolve(outDir, assetsDir)
+
         manifestPath = resolve(config.root, options.manifestPath)
-        // jsonStringify = value => JSON.stringify(value, null, config.mode === 'production' ? 0 : 2)
-        webAppManifestOutputPath = join(assetsDir, 'app.webmanifest')
+        jsonStringify = value => JSON.stringify(value, null, config.mode === 'production' ? 0 : 2)
+
+        webAppManifestOutputPath = resolve(absoluteAssetsDir, 'app.webmanifest')
+        webAppManifestOutputUrl = join(assetsDir, 'app.webmanifest')
       },
 
       async buildStart () {
         const consumer = readConsumer(manifestPath)
 
         emittedAssets = {}
-        await processWebAppManifest(this, consumer.absoluteDocumentPath('webAppManifest'))
+        webAppManifest = await loadWebAppManifest(this, consumer.absoluteDocumentPath('webAppManifest'))
       },
 
       async generateBundle () {
-        console.log(emittedAssets)
+        const assetMap = Object.fromEntries(
+          Object.entries(emittedAssets).map(([src, referenceId]) => {
+            return [src, resolve(outDir, this.getFileName(referenceId))]
+          }),
+        )
+
+        if (typeof webAppManifest !== 'undefined') {
+          const webAppManifestOutputDirPath = dirname(webAppManifestOutputPath)
+
+          const {icons = [], screenshots = []} = webAppManifest
+          const images = [...icons, ...screenshots]
+
+          for (const image of images) image.src = relative(webAppManifestOutputDirPath, assetMap[image.src])
+
+          this.emitFile({
+            type: 'asset',
+            fileName: webAppManifestOutputUrl,
+            source: jsonStringify(webAppManifest),
+          })
+        }
       },
 
       async transformIndexHtml () {
         return [
-          {tag: 'link', attrs: {rel: 'manifest', href: webAppManifestOutputPath}},
+          {tag: 'link', attrs: {rel: 'manifest', href: webAppManifestOutputUrl}},
         ]
       },
     },
   ]
 
-  async function processWebAppManifest (
+  async function loadWebAppManifest (
     context: PluginContext,
     webAppManifestPath: string|null,
-  ): Promise<void> {
-    if (typeof webAppManifestPath !== 'string') return
+  ): Promise<WebAppManifest|undefined> {
+    if (typeof webAppManifestPath !== 'string') return undefined
 
     const webAppManifestDirPath = dirname(webAppManifestPath)
     const webAppManifest = JSON.parse((await readFile(webAppManifestPath)).toString('utf-8'))
@@ -58,8 +84,7 @@ export function viteIconduitPlugin (options: ViteIconduitOptions): Plugin[] {
     const images = [...icons, ...screenshots]
 
     await Promise.all(images.map(async ({src}) => {
-      const {pathname} = urlParse(src)
-      const imagePath = resolve(webAppManifestDirPath, pathname)
+      const imagePath = resolve(webAppManifestDirPath, src)
 
       const referenceId = context.emitFile({
         type: 'asset',
@@ -69,5 +94,16 @@ export function viteIconduitPlugin (options: ViteIconduitOptions): Plugin[] {
 
       emittedAssets[src] = referenceId
     }))
+
+    return webAppManifest
   }
+}
+
+interface WebAppManifestImage {
+  src: string
+}
+
+interface WebAppManifest {
+  icons: WebAppManifestImage[]|undefined
+  screenshots: WebAppManifestImage[]|undefined
 }
