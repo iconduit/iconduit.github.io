@@ -8,12 +8,32 @@ export interface Options {
   shouldIndent?: boolean
 }
 
-export function webAppManifest (options: Options): Plugin {
+export interface ResolvedOptions {
+  inputPath: string
+  outputPath: string
+  shouldIndent: boolean
+}
+
+export function resolveOptions (options: Options): ResolvedOptions {
   const {
     inputPath,
     outputPath = 'app.webmanifest',
     shouldIndent = process.env.NODE_ENV !== 'production',
   } = options
+
+  return {
+    inputPath,
+    outputPath,
+    shouldIndent,
+  }
+}
+
+export function webAppManifest (options: Options): Plugin {
+  const {
+    inputPath,
+    outputPath,
+    shouldIndent,
+  } = resolveOptions(options)
 
   let emittedImages: {[src: string]: string}
   let manifest: Manifest

@@ -4,7 +4,7 @@ import reactRefreshPlugin from '@vitejs/plugin-react-refresh'
 // import {generateSW} from 'rollup-plugin-workbox'
 import {defineConfig} from 'vite'
 
-import {webAppManifest} from './src/rollup-plugin/web-app-manifest'
+import {webAppManifest} from './src/vite-plugin/web-app-manifest'
 // import {viteIconduitPlugin as iconduitPlugin} from './src/vite-plugin/iconduit'
 
 export default defineConfig(({mode}) => {
