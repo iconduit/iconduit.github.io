@@ -3,28 +3,38 @@ import {readFile} from 'fs/promises'
 import type {Plugin} from 'rollup'
 
 export interface Options {
+  compact?: boolean
+  indent?: string
   inputPath: string
   outputPath?: string
-  shouldIndent?: boolean
 }
 
 export interface ResolvedOptions {
+  compact: boolean
+  indent: string
   inputPath: string
   outputPath: string
-  shouldIndent: boolean
+}
+
+export function manifestImages (manifest: Manifest): Image[] {
+  const {icons = [], screenshots = []} = manifest
+
+  return [...icons, ...screenshots]
 }
 
 export function resolveOptions (options: Options): ResolvedOptions {
   const {
+    compact = process.env.NODE_ENV === 'production',
+    indent = '  ',
     inputPath,
     outputPath = 'app.webmanifest',
-    shouldIndent = process.env.NODE_ENV !== 'production',
   } = options
 
   return {
+    compact,
+    indent,
     inputPath,
     outputPath,
-    shouldIndent,
   }
 }
 
@@ -35,9 +45,10 @@ type WebAppManifestPlugin = Plugin & {
 
 export function webAppManifest (options: Options): WebAppManifestPlugin {
   const {
+    compact,
+    indent,
     inputPath,
     outputPath,
-    shouldIndent,
   } = resolveOptions(options)
 
   let emittedImages: {[src: string]: string}
@@ -83,16 +94,10 @@ export function webAppManifest (options: Options): WebAppManifestPlugin {
       this.emitFile({
         type: 'asset',
         fileName: outputPath,
-        source: JSON.stringify(manifest, null, shouldIndent ? 2 : 0),
+        source: JSON.stringify(manifest, null, compact ? '' : indent),
       })
     },
   }
-}
-
-function manifestImages (manifest: Manifest): Image[] {
-  const {icons = [], screenshots = []} = manifest
-
-  return [...icons, ...screenshots]
 }
 
 interface Image {
