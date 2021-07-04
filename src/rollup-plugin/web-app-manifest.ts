@@ -28,7 +28,12 @@ export function resolveOptions (options: Options): ResolvedOptions {
   }
 }
 
-export function webAppManifest (options: Options): Plugin {
+type WebAppManifestPlugin = Plugin & {
+  buildStart: NonNullable<Plugin['buildStart']>
+  generateBundle: NonNullable<Plugin['generateBundle']>
+}
+
+export function webAppManifest (options: Options): WebAppManifestPlugin {
   const {
     inputPath,
     outputPath,

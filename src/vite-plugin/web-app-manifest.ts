@@ -1,6 +1,6 @@
 import type {Plugin} from 'vite'
 
-import {resolveOptions, webAppManifest as rollupPlugin} from '../rollup-plugin/web-app-manifest'
+import {resolveOptions, webAppManifest as createRollupPlugin} from '../rollup-plugin/web-app-manifest'
 import type {Options} from '../rollup-plugin/web-app-manifest'
 
 export function webAppManifest (options: Options): Plugin {
@@ -8,8 +8,23 @@ export function webAppManifest (options: Options): Plugin {
     outputPath,
   } = resolveOptions(options)
 
+  const rollupPlugin = createRollupPlugin(options)
+  let isServer = false
+
   return {
-    ...rollupPlugin(options),
+    name: 'web-app-manifest',
+
+    async configureServer () {
+      isServer = true
+    },
+
+    async buildStart (...args) {
+      if (!isServer) await rollupPlugin.buildStart.call(this, ...args)
+    },
+
+    async generateBundle (...args) {
+      if (!isServer) await rollupPlugin.generateBundle.call(this, ...args)
+    },
 
     async transformIndexHtml () {
       return [
