@@ -34,6 +34,6 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-react": "^7.14.2",
     "webpack-bundle-analyzer": "^4.4.2",
-    "webpack-dev-server": "^4.0.0"
+    "webpack-dev-server": "^4.1.0"
   }
 }
