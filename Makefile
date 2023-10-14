@@ -26,13 +26,13 @@ run: webpack-serve
 
 # webpack-serve --- Run the Webpack development server.
 .PHONY: webpack-serve
-webpack-serve: node_modules
-	node_modules/.bin/webpack serve
+webpack-serve: artifacts/link-dependencies.touch
+	$(JS_EXEC) webpack serve
 
 ################################################################################
 
 artifacts/bundlesize.touch: artifacts/webpack/build/production
-	GITHUB_TOKEN= node_modules/.bin/bundlesize
+	GITHUB_TOKEN= $(JS_EXEC) bundlesize
 
 	@mkdir -p "$(@D)"
 	@touch "$@"
