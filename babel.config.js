@@ -1,5 +1,3 @@
-/* eslint-disable import/no-commonjs */
-
 module.exports = {
   plugins: ["@babel/plugin-syntax-dynamic-import"],
   presets: [
@@ -10,7 +8,12 @@ module.exports = {
         useBuiltIns: "entry",
       },
     ],
-    "@babel/preset-react",
+    [
+      "@babel/preset-react",
+      {
+        runtime: "automatic",
+      },
+    ],
   ],
   env: {
     test: {

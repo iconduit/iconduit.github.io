@@ -1,11 +1,12 @@
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 import App from "./component/App.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const container = document.createElement("span");
   document.body.appendChild(container);
 
-  render(App(), container);
+  const root = createRoot(container);
+  root.render(App());
 });
 
 if ("serviceWorker" in navigator) {

@@ -1,5 +1,3 @@
-/* eslint-disable import/no-commonjs */
-
 const { join } = require("path");
 
 const CopyPlugin = require("copy-webpack-plugin");
