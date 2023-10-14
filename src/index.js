@@ -1,16 +1,21 @@
-import {render} from 'react-dom'
+import { render } from "react-dom";
+import App from "./component/App.js";
 
-import App from './component/App.js'
+document.addEventListener("DOMContentLoaded", function () {
+  const container = document.createElement("span");
+  document.body.appendChild(container);
 
-document.addEventListener('DOMContentLoaded', function () {
-  const container = document.createElement('span')
-  document.body.appendChild(container)
+  render(App(), container);
+});
 
-  render(App(), container)
-})
+if ("serviceWorker" in navigator) {
+  import(/* webpackChunkName: "workbox" */ "workbox-window")
+    .then(({ Workbox }) => {
+      new Workbox("/service-worker.js").register();
 
-if ('serviceWorker' in navigator) {
-  import(/* webpackChunkName: "workbox" */ 'workbox-window').then(({Workbox}) => {
-    new Workbox('/service-worker.js').register()
-  })
+      return;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
