@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "@babel/register": "^7.15.3",
-    "bundlesize": "^0.18.1",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.27.5",
