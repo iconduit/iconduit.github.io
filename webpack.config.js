@@ -1,18 +1,12 @@
 const { join } = require("path");
 
 const CopyPlugin = require("copy-webpack-plugin");
-const GitVersionPlugin = require("@eloquent/git-version-webpack-plugin");
 const HtmlPlugin = require("html-webpack-plugin");
 const IconduitHtmlPlugin = require("@iconduit/html-webpack-plugin");
 const StatsPlugin = require("stats-webpack-plugin");
 const { GenerateSW } = require("workbox-webpack-plugin");
 
 const consumer = require("./assets/iconduit.consumer.js");
-
-const {
-  env: { TRAVIS_COMMIT: travisCommit },
-} = process;
-const version = travisCommit && travisCommit.substring(0, 7);
 
 const srcPath = join(__dirname, "src");
 const manifestPath = join(__dirname, "assets/site.iconduitmanifest");
@@ -60,7 +54,6 @@ module.exports = (_, { mode = "development" } = {}) => {
         template: "src/index.html",
         title: name,
       }),
-      new GitVersionPlugin({ version }),
       new IconduitHtmlPlugin({ manifestPath }),
       new GenerateSW({
         cacheId: "iconduit-website",

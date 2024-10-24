@@ -9,7 +9,6 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-react": "^7.0.0",
-    "@eloquent/git-version-webpack-plugin": "^5.0.0",
     "@iconduit/consumer": "^0.4.1",
     "@iconduit/html-webpack-plugin": "^0.2.1",
     "babel-loader": "^9.1.3",
