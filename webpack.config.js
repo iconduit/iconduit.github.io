@@ -90,8 +90,18 @@ module.exports = (_, { mode = "development" } = {}) => {
           use: "babel-loader",
         },
         {
-          test: /\.(png|svg|xml|webmanifest)$/,
+          test: /\.(png|svg)$/,
           type: "asset/resource",
+        },
+        {
+          test: /\.webmanifest$/i,
+          type: "asset/resource",
+          use: "@iconduit/webmanifest-loader",
+        },
+        {
+          test: /\/browserconfig\.xml$/i,
+          type: "asset/resource",
+          use: "@iconduit/browserconfig-loader",
         },
       ],
     },
