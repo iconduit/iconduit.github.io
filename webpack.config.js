@@ -3,7 +3,6 @@ const { join } = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const HtmlPlugin = require("html-webpack-plugin");
 const IconduitHtmlPlugin = require("@iconduit/html-webpack-plugin");
-const StatsPlugin = require("stats-webpack-plugin");
 const { GenerateSW } = require("workbox-webpack-plugin");
 
 const consumer = require("./assets/iconduit.consumer.js");
@@ -49,7 +48,6 @@ module.exports = (_, { mode = "development" } = {}) => {
   return {
     mode,
     plugins: [
-      new StatsPlugin(".stats.json"),
       new HtmlPlugin({
         template: "src/index.html",
         title: name,
